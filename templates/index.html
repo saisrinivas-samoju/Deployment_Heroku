@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid bg-light text-dark p-5">
+  <h1>Welcome to Iris Prediction Page</h1>
+  <h4>If you want to predict your flower, click on Predict Button below</h4><br>
+  <div class="container-fluid">
+    <a class="fw-bold bg-danger badge fs-3" style="text-decoration:none" href="{{url_for('predict')}}">Predict</a>
+  </div>
+</div>
+{% endblock %}

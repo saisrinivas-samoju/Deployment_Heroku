@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container-fluid bg-light text-dark p-5">
+    <form method="POST">
+        {{form.hidden_tag()}}
+      <div class="mb-3">
+        {{form.sepal_length.label(class = "form-label")}} {{form.sepal_length(class = "form-control", placeholder="4 to 8")}}
+      </div>
+      <div class="mb-3">
+        {{form.sepal_width.label(class = "form-label")}} {{form.sepal_width(class = "form-control", placeholder="2 to 5")}}
+      </div>
+      <div class="mb-3">
+        {{form.petal_length.label(class = "form-label")}} {{form.petal_length(class = "form-control", placeholder="1 to 7")}}
+      </div>
+      <div class="mb-3">
+        {{form.petal_width.label(class = "form-label")}} {{form.petal_width(class = "form-control", placeholder="0.1 to 2.5")}}
+      </div>
+      <div>
+        {{form.submit(class="btn btn-primary")}}
+      </div>
+    </form>
+  </div>
+  {% for mess in get_flashed_messages() %}
+  <div class="alert alert-dark alert-dismissible fade show text-center" role="alert">
+    <strong>Features Submitted: {{mess}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+    <br><br>
+    <div  align = 'center'>
+      {% if model.predict([[session['sepal_length'], session['sepal_width'],session['petal_length'],session['petal_width'] ]])[0].upper()=='SETOSA' %}
+        <img align='center' class="img-thumbnail" src="https://i.ibb.co/DLHzRLW/setosa.jpg" alt="SETOSA">
+      {% elif model.predict([[session['sepal_length'], session['sepal_width'],session['petal_length'],session['petal_width'] ]])[0].upper()=='VERSICOLOR' %}
+        <img align='center' class="img-thumbnail" src="https://i.ibb.co/x8X3DfB/versicolor.jpg" alt="VERSICOLOR">
+      {% elif model.predict([[session['sepal_length'], session['sepal_width'],session['petal_length'],session['petal_width'] ]])[0].upper()=='VIRGINICA' %}
+        <img align='center' class="img-thumbnail" src="https://i.ibb.co/q7rdsj5/virginica.jpg" alt="VIRGINICA">
+      {% else %}
+        <img align='center' src="https://i.ibb.co/gy9yvyT/default.jpg" alt="IMAGE WILL BE DISPLAYED HERE.">
+      {%endif%}
+    </div>
+
+  </div>
+  {% endfor %}
+{% endblock %}
